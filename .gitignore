@@ -1,0 +1,11 @@
+.Rproj.user
+.idea
+.vscode
+.Rhistory
+.RData
+.Ruserdata
+*.pyc
+*.pdf
+*/*.rds
+*-log.txt
+*.db
