@@ -4,6 +4,7 @@
 .Rhistory
 .RData
 .Ruserdata
+__pycache__
 *.pyc
 *.pdf
 */*.rds
