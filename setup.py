@@ -10,6 +10,12 @@ setuptools.setup(
     author_email="brandon@bertelsen.ca",
     description="For monitoring processes related to data science that are embarassingly parallel and prone to failure",
     long_description=long_description,
+    install_requires = [
+        'requests',
+        'ray',
+        'peewee',
+        'psutil'
+    ]
     long_description_content_type="text/markdown",
     url="https://github.com/1beb/pychaperone",
     packages=setuptools.find_packages(),
