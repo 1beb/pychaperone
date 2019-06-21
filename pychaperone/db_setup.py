@@ -7,6 +7,3 @@ class QueueCheck(Model):
     complete = BooleanField(default=True)
     error = TextField(default="")
     meta = JSONField(default="")
-
-    class Meta: 
-        database = db
