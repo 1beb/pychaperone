@@ -15,7 +15,7 @@ setuptools.setup(
         'ray',
         'peewee',
         'psutil'
-    ]
+    ],
     long_description_content_type="text/markdown",
     url="https://github.com/1beb/pychaperone",
     packages=setuptools.find_packages(),
