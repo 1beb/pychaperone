@@ -16,7 +16,7 @@ Code Overview:
 
 from pychaperone.db_setup import QueueCheck
 from json import dumps
-from peewee import IntegrityError, SqliteDatabase
+from peewee import IntegrityError, SqliteDatabase, PostgresqlDatabase
 import ray
 
 
@@ -40,21 +40,29 @@ def chaperone(items, fun, db, db_fun='sqlite', save=True):
 
 def chaperone_internal(item, fun, db, db_fun, save, force=False):
 
-    
-    # if isinstance(fun, bytes):
-    #     fun = pickle.loads(fun)
-    #     if not callable(fun):
-    #         raise ValueError('The function did not convert properly')
-
     fname = fun.__name__
 
     meta = None
     
     if db_fun == 'sqlite':
         db_fun = SqliteDatabase
+        db = db_fun(db)
+        db.connect()
+    
+    if db_fun == 'postgres':
+        try:
+            db = PostgresqlDatabase(            
+                db['dbname'], 
+                user=db['user'], 
+                password = db['password'], 
+                host = db['host'], 
+                port=db['port']
+            )
+        except IndexError:
+            raise ValueError('Missing dictionary with login information for postgres') 
 
-    db = db_fun(db)
-    db.connect()
+        db = db_fun(db)
+        db.connect()
 
     try:
         with db.atomic():
