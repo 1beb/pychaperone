@@ -45,24 +45,19 @@ def chaperone_internal(item, fun, db, db_fun, save, force=False):
     meta = None
     
     if db_fun == 'sqlite':
-        db_fun = SqliteDatabase
-        db = db_fun(db)
-        db.connect()
+        db_fun = SqliteDatabase(db)
+
     
     if db_fun == 'postgres':
-        try:
-            db = PostgresqlDatabase(            
-                db['dbname'], 
-                user=db['user'], 
-                password = db['password'], 
-                host = db['host'], 
-                port=db['port']
-            )
-        except IndexError:
-            raise ValueError('Missing dictionary with login information for postgres') 
+        db = PostgresqlDatabase(            
+            db['dbname'], 
+            user=db['user'], 
+            password = db['password'], 
+            host = db['host'], 
+            port=db['port']
+        )
 
-        db = db_fun(db)
-        db.connect()
+    db.connect()
 
     try:
         with db.atomic():
