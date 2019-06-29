@@ -14,7 +14,7 @@ Code Overview:
 4. If failures occur, retry the code (assuming updates to "fun")
 """
 
-from pychaperone.db_setup import QueueCheck
+from pychaperone.db_setup import QueueCheck, database_proxy
 from json import dumps
 from peewee import IntegrityError, SqliteDatabase, PostgresqlDatabase
 import ray
@@ -46,6 +46,7 @@ def chaperone_internal(item, fun, db, db_fun, save, force=False):
     
     if db_fun == 'sqlite':
         db = SqliteDatabase(db)
+        database_proxy.initialize(db)
 
 
     
@@ -57,6 +58,7 @@ def chaperone_internal(item, fun, db, db_fun, save, force=False):
             host = db['host'], 
             port=db['port']
         )
+        database_proxy.initialize(db)
 
     db.connect()
 
