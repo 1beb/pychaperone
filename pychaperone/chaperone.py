@@ -45,7 +45,8 @@ def chaperone_internal(item, fun, db, db_fun, save, force=False):
     meta = None
     
     if db_fun == 'sqlite':
-        db_fun = SqliteDatabase(db)
+        db = SqliteDatabase(db)
+
 
     
     if db_fun == 'postgres':
