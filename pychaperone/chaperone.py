@@ -56,7 +56,9 @@ def chaperone_internal(item, fun, db, db_fun, save, force=False):
             user=db['user'], 
             password = db['password'], 
             host = db['host'], 
-            port=db['port']
+            port=db['port'],
+            autorollback=True, 
+            autocommit=True
         )
         database_proxy.initialize(db)
 
